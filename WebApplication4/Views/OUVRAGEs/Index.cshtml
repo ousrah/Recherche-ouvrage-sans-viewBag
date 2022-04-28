@@ -1,0 +1,76 @@
+﻿@model WebApplication4.Models.ClaOuv
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<form asp-action="index" asp-controller="OUVRAGES" method="POST">
+
+
+    <input type="text" name="chercher" id="chercher" value="@Html.DisplayFor(modelItem => Model.chercher)"  />
+    <select name="classification" id="classification">
+        <option value="">All     </option>
+
+
+
+            @foreach (var item in Model.Classifications)
+            {
+            <option 
+                     @(Model.selectedClassification == item.NUMRUB.ToString() ? "selected" : "")
+             
+
+
+              value="@Html.DisplayFor(modelItem => item.NUMRUB)">
+
+
+          @Html.DisplayFor(modelItem => item.LIBRUB)
+            </option>
+          }
+        </select>   <input type="submit" name="bntEnvoyer" id="btnEnvoyer" value="Chercher" />
+</form>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ouvrages[0].NOMOUVR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ouvrages[0].ANNEEPARU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ouvrages[0].CLASSIFICATION.LIBRUB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ouvrages[0].EDITEUR.ADRED)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in  Model.Ouvrages) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMOUVR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ANNEEPARU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLASSIFICATION.LIBRUB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EDITEUR.ADRED)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NUMOUVR }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NUMOUVR }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NUMOUVR })
+        </td>
+    </tr>
+}
+
+</table>
